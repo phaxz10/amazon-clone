@@ -1,13 +1,18 @@
-import { Provider } from 'react-redux'
-import { store } from '../app/store'
-import '../styles/globals.css'
+import { Provider } from 'react-redux';
+import { store } from '../app/store';
+import Layout from '../components/Layout';
+import '../styles/globals.css';
 
 const MyApp = ({ Component, pageProps }) => {
   return (
-    <Provider store={store}>
-      <Component {...pageProps} />
-    </Provider>
-  )
-}
+    <Layout>
+      <div suppressHydrationWarning>
+        <Provider store={store}>
+          {typeof window === 'undefined' ? null : <Component {...pageProps} />}
+        </Provider>
+      </div>
+    </Layout>
+  );
+};
 
-export default MyApp
+export default MyApp;

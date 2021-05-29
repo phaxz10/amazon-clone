@@ -1,41 +1,58 @@
-import Head from "next/head";
+import Head from 'next/head';
+import Banner from '../components/Banner';
+import ProductFeed from '../components/ProductFeed';
+// import {
+//   setElectronics,
+//   setJewelry,
+//   setMenswear,
+//   setWomenswear,
+// } from '../slices/productsSlice';
+// import { useDispatch } from 'react-redux';
+// import { useEffect } from 'react';
 
-export default function Home() {
+export default function Home({ products }) {
+  // console.log(products);
+  // const dispatch = useDispatch();
+
+  // const getItemByCategory = (category) => {
+  //   return products.filter((items) => items.category == category);
+  // };
+
+  // useEffect(() => {
+  //   dispatch(setElectronics(getItemByCategory(`electronics`)));
+  //   dispatch(setJewelry(getItemByCategory('jewelery')));
+  //   dispatch(setMenswear(getItemByCategory(`men's clothing`)));
+  //   dispatch(setWomenswear(getItemByCategory(`women's clothing`)));
+  // }, []);
+
   return (
-    <div>
+    <div className='grid place-items-center bg-gray-100'>
       <Head>
-        <title>Amazon 2.0</title>
+        <title>Amazon clone</title>
       </Head>
 
-      {/* ---- TO BEGIN, delete this section and GET CODING!!! ---- */}
-      <center className="grid place-items-center mt-10">
-        <h1 className="text-5xl">Lets build Amazon 2.0</h1>
-        <h2>This is your starter template!</h2>
-        <br />
-        <h3 className="font-bold">
-          We will be using Next.js / Tailwind CSS / Redux / Firebase / NextAuth
-        </h3>
-        <i>(Dont worry, its all setup and ready to use!)</i>
-        <h4>Get Ready, Get Set, GO!!!</h4>
+      {/* header */}
+      {/* <Header /> */}
 
-        <h5 className="mb-10">#PAPAFAM</h5>
+      <main className='xl:max-w-screen-xl'>
+        {/* main body */}
+        <Banner />
 
-        <div className="bg-red-300 p-10">
-          <p className="font-bold">
-            Dont forget to register for the challenge here!
-          </p>
-          <p>👇👇👇</p>
-          <a
-            href="https://www.papareact.com/secret-challenge"
-            className="text-blue-400 underline p-3 font-bold"
-          >
-            CLICK HERE TO REGISTER NOW
-          </a>
-        </div>
-
-        <p className="mt-24">Built with 💙 by Sonny Sangha (PAPA REACT)</p>
-      </center>
-      {/* ---- ---- */}
+        {/* product feed */}
+        <ProductFeed products={products} />
+      </main>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const products = await fetch('https://fakestoreapi.com/products').then(
+    (res) => res.json()
+  );
+
+  return {
+    props: {
+      products,
+    },
+  };
 }
