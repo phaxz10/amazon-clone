@@ -7,6 +7,7 @@ import {
 } from '@heroicons/react/outline';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const btmheadertxt = [
   `Today's Deals`,
@@ -31,10 +32,19 @@ const mblheadertxt = [
   'Amazon Basics',
   'List',
 ];
+import { useSelector } from 'react-redux';
+import { getItemCount } from '../slices/basketSlice';
+
+import { signIn, signOut, useSession } from 'next-auth/client';
 
 const Header = () => {
+  const totalItems = useSelector(getItemCount);
+
+  const [session] = useSession();
+  const router = useRouter();
+
   return (
-    <header className=' text-white bg-amazon_blue'>
+    <header className='text-white bg-amazon_blue'>
       <div className='flex items-center p-1 h-14 space-x-2 justify-between'>
         {/* top */}
         <div className='flex items-center'>
@@ -69,29 +79,46 @@ const Header = () => {
         </div>
         <div className='flex items-center'>
           {/* right */}
-          <div className='hidden md:grid p-1 hover:link'>
-            <span className='text-xs text-gray-300'>Hello, sign in</span>
+          <div
+            className='hidden md:grid p-1 hover:link'
+            onClick={session ? signOut : () => signIn('google')}
+          >
+            <span className='text-xs text-gray-300'>
+              Hello, {session ? session.user.name.split(' ', 1) : 'Sign in'}
+            </span>
             <div className='flex items-center'>
               <span className='text-sm font-medium mr-1'>Account</span>
               <ChevronDownIcon className='h-3' />
             </div>
           </div>
 
-          <div className='hidden md:grid p-1 hover:link'>
+          <div
+            className='hidden md:grid p-1 hover:link'
+            onClick={(e) => {
+              e.preventDefault();
+              router.push('/orders');
+            }}
+          >
             <span className='text-xs text-gray-300'>Returns</span>
             <div className='flex items-center'>
               <span className='text-sm font-medium'>& Orders</span>
             </div>
           </div>
 
-          <span className='text-sm p-2 hover:text-yellow-400 md:hidden  cursor-pointer'>
-            Sign In
+          <span
+            className='text-sm p-2 hover:text-yellow-400 md:hidden cursor-pointer'
+            onClick={session ? signOut : () => signIn('google')}
+          >
+            {session ? session.user.name.split(' ', 1) : 'Sign in'}
           </span>
 
-          <div className='relative flex items-center h-[40px] w-[40px]'>
+          <div
+            className='relative flex items-center h-[40px] w-[40px] cursor-pointer'
+            onClick={() => router.push('/checkout')}
+          >
             <ShoppingCartIcon className=' h-[35px] w-[35px]' />
             <span className=' text-yellow-400 font-bold text-xs text-center h-4 w-[20px] bg-amazon_blue absolute -top-0 left-[9px] rounded-lg'>
-              69
+              {totalItems > 0 && totalItems}
             </span>
           </div>
         </div>

@@ -7,6 +7,15 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      gridTemplateAreas: {
+        layout: ['main'],
+      },
+      gridTemplateColumns: {
+        layout: '1fr',
+      },
+      gridTemplateRows: {
+        layout: '1fr',
+      },
       colors: {
         amazon_blue: {
           light: '#232F3E',
@@ -18,5 +27,8 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/line-clamp')],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+    require('@savvywombat/tailwindcss-grid-areas'),
+  ],
 };

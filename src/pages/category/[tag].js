@@ -1,7 +1,6 @@
 import Product from '../../components/Product';
 
 const Details = ({ products }) => {
-  console.log(products);
   return (
     <div className='cardContainer'>
       {products.map(({ id, title, price, description, category, image }) => {

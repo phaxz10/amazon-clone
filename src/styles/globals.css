@@ -23,4 +23,16 @@
   .cardContainer {
     @apply grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
   }
+
+  .countButton {
+    @apply h-6 p-1 bg-yellow-400 hover:bg-yellow-500 rounded-sm;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }

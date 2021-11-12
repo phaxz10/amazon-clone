@@ -1,13 +1,9 @@
 import React from 'react';
 import { Categories } from './Categories';
-// import { useSelector } from 'react-redux';
-// import { getProducts } from '../slices/productsSlice';
 import Product from './Product';
 import { catList } from './categoryList';
 
 const ProductFeed = ({ products }) => {
-  // const products = useSelector(getProducts);
-
   return (
     <div className='cardContainer -mt-28 md:-mt-32 lg:-mt-52'>
       {catList.map(({ image, title, link }, i) => (

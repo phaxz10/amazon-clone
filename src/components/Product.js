@@ -19,10 +19,10 @@ const Product = ({ title, price, description, category, image, id }) => {
       addToBasket({
         id: id,
         title: title,
-        description: description,
         price: price,
         image: image,
-        category: category,
+        description: description,
+        count: 1,
       })
     );
   };
